@@ -1,10 +1,13 @@
-version: 0.1
+version: 0.2
 
 phases:
   build:
     commands:
       - echo Build started on `date`
       - mvn test
+      - mkdir -p build/subdir_build
+      - touch build/subdir_build/build.txt
+      - echo $CODEBUILD_SRC_DIR >> build/subdir_build/build.txt
   post_build:
     commands:
       - echo Build completed on `date`
@@ -12,3 +15,4 @@ phases:
 artifacts:
   files:
     - target/aws-build-sample-maven-project-0.0.1-SNAPSHOT.jar
+    - build/**/*
